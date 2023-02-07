@@ -22,4 +22,4 @@ const authEndpoint = Router();
 authEndpoint.post("/", loginController);
 authEndpoint.post("/", logoutController);
 
-export { userEndpoint };
+export { userEndpoint, authEndpoint };
