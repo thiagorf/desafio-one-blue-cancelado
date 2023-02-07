@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
+import "express-async-errors";
 import express, { json, Request, Response } from "express";
 import { v1 } from "./routes";
 import session from "express-session";
