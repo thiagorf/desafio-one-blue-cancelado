@@ -1,0 +1,251 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Recriação da api \"O pensador\"",
+		"description": "desafio proposto pela one blue com o objetivo de recriar uma api similar com a do site \"O Pensador\"",
+		"version": "1.0.0"
+	},
+	"paths": {
+		"/v1/users/thoughts": {
+			"get": {
+				"tags":["Users"],
+				"summary": "Get all users and thougts",
+				"description": "Get users and their respective thoughts",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref":"#/components/schemas/UserThought"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/users": {		
+			"post": {
+				"tags": ["Users"],
+				"summary": "Create an user",
+				"description": "Create a new user",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserCreate"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Email is already been used"
+					}
+				}
+			}
+		},
+		"/v1/users/{userId}": {
+			"get": {
+				"tags": ["Users"],
+				"summary": "Get one user",
+				"description": "return one user based on id",
+				"parameters": [{"name": "userId",
+				"required": true,
+				"schema": {
+					"type": "integer",
+					"format": "int64",
+					"minimum": 1
+				}}],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid or inexisting"
+					}
+				}
+			},
+			"put": {
+				"tags": ["Users"],
+				"summary": "Update one user",
+				"description": "update one user based on id",
+				"parameters": [{"name": "userId",
+				"required": true,
+				"schema": {
+					"type": "integer",
+					"format": "int64",
+					"minimum": 1
+				}}],
+				"security": [{
+					"cookieAuth": []
+				}],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserUpdate"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid or inexisting"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Users"],
+				"summary": "Delete one user",
+				"description": "delete one user based on id",
+				"parameters": [{"name": "userId",
+				"required": true,
+				"schema": {
+					"type": "integer",
+					"format": "int64",
+					"minimum": 1
+				}}],
+				"security": [{
+					"cookieAuth": []
+				}],
+				"responses": {
+					"200": {
+						"description": "Ok"
+					},
+					"400": {
+						"description": "Invalid or inexisting"
+					}
+				}
+			}
+		}
+		
+	},
+	"components": {
+		"schemas": {
+			"User": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "John"
+					}, 
+					"email": {
+						"type": "string",
+						"example": "john@gmail.com"
+					}
+				}
+			},
+			"UserCreate": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "John"
+					}, 
+					"email": {
+						"type": "string",
+						"example": "john@gmail.com"
+					},
+					"password": {
+						"type": "string",
+						"example": "1234"
+					}
+				}
+			},
+			"UserUpdate": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"example": "John"
+					}, 
+					"email": {
+						"type": "string",
+						"example": "john@gmail.com"
+					}
+				}
+			},
+			"Thought": {
+				"type": "object",
+				"properties": {
+				"id": {
+					"type": "integer",
+					"example": 1
+				},
+				"thought": {
+					"type": "string",
+					"example": "WOW"
+				}
+				}
+			},
+			"UserThought": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "John"
+					}, 
+					"email": {
+						"type": "string",
+						"example": "john@gmail.com"
+					}, 
+					"thoughts": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Thought"
+						}
+					}
+				}
+			}
+		},
+		"securitySchemes": {
+			"cookieAuth": {
+				"type": "apiKey",
+				"in": "cookie",
+				"name": "sid" 
+			}
+		}
+	}
+	
+}

@@ -12,7 +12,7 @@
     "container:stop": "docker container stop $(docker ps -q)",
     "compose:dev": "docker compose up -d",
     "create:migration": "docker compose up -d && yarn prisma migrate dev --create-only",
-    "docker:dev": "yarn compose:dev && yarn prisma migrate deploy && yarn ts-node-dev --respawn --transpile-only src/server.ts"
+    "docker:dev": "yarn compose:dev && yarn prisma migrate deploy && yarn ts-node-dev --respawn --transpile-only --exit-child src/server.ts"
   },
   "dependencies": {
     "@prisma/client": "4.9.0",
@@ -27,12 +27,15 @@
     "express-session": "^1.17.3",
     "ioredis": "^5.3.0",
     "prisma": "^4.9.0",
+    "swagger-autogen": "^2.23.0",
+    "swagger-ui-express": "^4.6.0",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/connect-redis": "^0.0.19",
     "@types/cors": "^2.8.13",
+    "@types/swagger-ui-express": "^4.1.3",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
     "eslint": "^8.33.0",
