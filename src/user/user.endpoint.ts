@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { checkAuthMiddleware } from "../middleware/check-auth.middleware";
 import {
     loginController,
     logoutController,
@@ -14,8 +15,8 @@ const userEndpoint = Router();
 
 userEndpoint.get("/:id", findOneUserController);
 userEndpoint.post("/", createUserController);
-userEndpoint.put("/:id", updateUserController);
-userEndpoint.delete("/:id", deleteUserController);
+userEndpoint.put("/:id", checkAuthMiddleware, updateUserController);
+userEndpoint.delete("/:id", checkAuthMiddleware, deleteUserController);
 
 const authEndpoint = Router();
 
