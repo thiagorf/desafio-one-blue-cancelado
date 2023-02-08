@@ -63,6 +63,21 @@ async function deleteUser(id: number) {
     });
 }
 
+async function allUsersAllThoughts() {
+    return await prisma.user.findMany({
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            thoughts: {
+                orderBy: {
+                    created_at: "asc",
+                },
+            },
+        },
+    });
+}
+
 export {
     createUser,
     findUserById,
@@ -70,4 +85,5 @@ export {
     updateUser,
     deleteUser,
     findUserByIdOrThrow,
+    allUsersAllThoughts,
 };

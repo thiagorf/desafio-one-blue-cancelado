@@ -6,6 +6,7 @@ import {
     updateUser,
     deleteUser,
     findUserByIdOrThrow,
+    allUsersAllThoughts,
 } from "../repositories/user.repository";
 import { EXCEPTION, MSG } from "../user.constraints";
 import { hash } from "bcrypt";
@@ -42,9 +43,14 @@ async function deleteUserUseCase(id: number) {
     };
 }
 
+async function returnAllUsersThoughtsUseCase() {
+    return await allUsersAllThoughts();
+}
+
 export {
     createUserUseCase,
     findOneUserUseCase,
     updateUserUseCase,
     deleteUserUseCase,
+    returnAllUsersThoughtsUseCase,
 };

@@ -8,6 +8,7 @@ import {
     deleteUserUseCase,
     findOneUserUseCase,
     updateUserUseCase,
+    returnAllUsersThoughtsUseCase,
 } from "./user-domain";
 
 async function checkUserIsTheRightOne(id: number, req: Request, res: Response) {
@@ -53,9 +54,14 @@ async function deleteUserController(req: Request, res: Response) {
     return res.json(await deleteUserUseCase(+id));
 }
 
+async function returnAllUsersThoughtsController(req: Request, res: Response) {
+    return res.json(await returnAllUsersThoughtsUseCase());
+}
+
 export {
     findOneUserController,
     createUserController,
     updateUserController,
     deleteUserController,
+    returnAllUsersThoughtsController,
 };

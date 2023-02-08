@@ -9,10 +9,12 @@ import {
     deleteUserController,
     findOneUserController,
     updateUserController,
+    returnAllUsersThoughtsController,
 } from "./use-cases/crud/user-controller";
 
 const userEndpoint = Router();
 
+userEndpoint.get("/thoughts", returnAllUsersThoughtsController);
 userEndpoint.get("/:id", findOneUserController);
 userEndpoint.post("/", createUserController);
 userEndpoint.put("/:id", checkAuthMiddleware, updateUserController);
