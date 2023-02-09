@@ -146,8 +146,235 @@
 					}
 				}
 			}
+		},
+		"/v1/auth/login": {
+			"post": {
+				"tags": ["Auth"],
+				"summary": "Authenticate an user",
+				"description": "Attempts to authenticate an user",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully logged in"
+					},
+					"400": {
+						"description": "Email is already been used"
+					}
+				}
+			}
+		},
+		"/v1/auth/logout": {
+			"post": {
+				"tags": ["Auth"],
+				"summary": "Remove user session",
+				"description": "Attempts to remove the user session",
+				"responses": {
+					"200": {
+						"description": "Successfully logged out"
+					}
+				}
+			}
+		},
+
+		"/v1/thoughts/{thoughtId}": {
+			"get": {
+				"tags": ["Thought"],
+				"summary": "Get one thought",
+				"description": "Return one trhought",
+				"parameters": [{
+					"name": "thoughtId",
+					"required": true,
+					"schema": {
+						"type": "integer",
+						"format": "int64",
+						"minimum": 1
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref":"#/components/schemas/Thought"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid or inexisting"
+					}
+				}
+			},
+			"put": {
+				"tags": ["Thought"],
+				"summary": "Update one thought",
+				"description": "Update one thought",
+				"parameters": [{
+					"name": "thoughtId",
+					"required": true,
+					"schema": {
+						"type": "integer",
+						"format": "int64",
+						"minimum": 1
+					}
+				}],
+				"security": [{
+					"cookieAuth": []
+				}],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateThought"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref":"#/components/schemas/Thought"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid or inexisting"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Thought"],
+				"summary": "Delete one thought",
+				"description": "Delete one thought",
+				"parameters": [{
+					"name": "thoughtId",
+					"required": true,
+					"schema": {
+						"type": "integer",
+						"format": "int64",
+						"minimum": 1
+					}
+				}],
+				"security": [{
+					"cookieAuth": []
+				}],
+				"responses": {
+					"200": {
+						"description": "Thought deleted"
+					},
+					"400": {
+						"description": "Invalid or inexisting"
+					}
+				}
+			}
+		},
+		"/v1/thoughts": {
+			"post": {
+				"tags": ["Thought"],
+				"summary": "Create one thought",
+				"description": "Create one thought",
+				"security": [{
+					"cookieAuth": []
+				}],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateThought"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Thought deleted"
+					},
+					"400": {
+						"description": "Invalid or inexisting"
+					}
+				}
+				}
+			
+		},
+
+		"/v1/thoughts/{thoughtId}/like": {
+			"post": {
+				"tags": ["Thought"],
+				"summary": "Like one thought",
+				"description": "Like one thought",
+				"parameters": [{
+					"name": "thoughtId",
+					"required": true,
+					"schema": {
+						"type": "integer",
+						"format": "int64",
+						"minimum": 1
+					}
+				}],
+				"security": [{
+					"cookieAuth": []
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThoughtLike"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid or inexisting"
+					}
+				}
+				
+			}
+		},
+		"/v1/thoughts/{thoughtId}/remove_like": {
+			"delete": {
+				"tags": ["Thought"],
+				"summary": "Remove like on thought",
+				"description": "Remove like on thought",
+				"parameters": [{
+					"name": "thoughtId",
+					"required": true,
+					"schema": {
+						"type": "integer",
+						"format": "int64",
+						"minimum": 1
+					}
+				}],
+				"security": [{
+					"cookieAuth": []
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThoughtLike"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid or inexisting"
+					}
+				}
+			}
 		}
-		
 	},
 	"components": {
 		"schemas": {
@@ -169,25 +396,22 @@
 				}
 			},
 			"UserCreate": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "integer",
-						"example": 1
-					},
-					"name": {
-						"type": "string",
-						"example": "John"
-					}, 
-					"email": {
-						"type": "string",
-						"example": "john@gmail.com"
-					},
-					"password": {
-						"type": "string",
-						"example": "1234"
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "John"
+						}, 
+						"email": {
+							"type": "string",
+							"example": "john@gmail.com"
+						},
+						"password": {
+							"type": "string",
+							"example": "1234"
+						}
 					}
-				}
+				
 			},
 			"UserUpdate": {
 				"type": "object",
@@ -205,36 +429,88 @@
 			"Thought": {
 				"type": "object",
 				"properties": {
-				"id": {
-					"type": "integer",
-					"example": 1
-				},
-				"thought": {
-					"type": "string",
-					"example": "WOW"
+					"id": {
+						"type": "integer",
+						"example": 1
+					},
+					"thought": {
+						"type": "string",
+						"example": "WOW"
+					},
+					"user_id": {
+						"type": "integer",
+						"example": 1
+					},
+					"likes_qty": {
+						"type": "integer",
+						"example": 0
+					}
 				}
+			},
+			"CreateThought": {
+				"type": "object",
+				"properties": {
+					"thought": {
+						"type": "string",
+						"example": "WOW"
+					},
+					"user_id": {
+						"type": "integer",
+						"example": 1
+					}
+				}
+			},
+			"UpdateThought": {
+				"type": "object",
+				"properties": {
+					"thought": {
+						"type": "string",
+						"example": "WOW"
+					}
 				}
 			},
 			"UserThought": {
+				"allOf": {
+					"$ref": "#/components/schemas/User",
+					"type": "object",
+					"properties": {
+						"thoughts": {
+							"type": "array",
+							"items": {
+								"$ref": "#/components/schemas/Thought"
+							}
+						}
+					}
+				}
+				
+			},
+			"LoginDto": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string",
+						"example": "john@gmail.com"
+					},
+					"password": {
+						"type": "string",
+						"example": "1234"
+					}
+				}
+			},
+			"ThoughtLike": {
 				"type": "object",
 				"properties": {
 					"id": {
 						"type": "integer",
 						"example": 1
 					},
-					"name": {
-						"type": "string",
-						"example": "John"
-					}, 
-					"email": {
-						"type": "string",
-						"example": "john@gmail.com"
-					}, 
-					"thoughts": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/Thought"
-						}
+					"thought_id": {
+						"type": "integer",
+						"exanmple": 1
+					},
+					"user_id": {
+						"type": "integer",
+						"example": 1
 					}
 				}
 			}

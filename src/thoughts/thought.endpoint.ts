@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { checkAuthMiddleware } from "../middleware/check-auth.middleware";
 import {
     createThoughtController,
     deleteThoughtController,
@@ -13,12 +14,20 @@ import {
 
 const thoughtEndpoint = Router();
 
-thoughtEndpoint.post("/:thought_id/like", likeThoughtController);
-thoughtEndpoint.delete("/:thought_id/remove_like", removeLikeThoughtController);
+thoughtEndpoint.post(
+    "/:thought_id/like",
+    checkAuthMiddleware,
+    likeThoughtController
+);
+thoughtEndpoint.delete(
+    "/:thought_id/remove_like",
+    checkAuthMiddleware,
+    removeLikeThoughtController
+);
 
 thoughtEndpoint.get("/:id", findOneThoughtController);
-thoughtEndpoint.post("/", createThoughtController);
-thoughtEndpoint.put("/:id", updateThoughtController);
-thoughtEndpoint.delete("/:id", deleteThoughtController);
+thoughtEndpoint.post("/", checkAuthMiddleware, createThoughtController);
+thoughtEndpoint.put("/:id", checkAuthMiddleware, updateThoughtController);
+thoughtEndpoint.delete("/:id", checkAuthMiddleware, deleteThoughtController);
 
 export { thoughtEndpoint };
