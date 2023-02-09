@@ -30,6 +30,12 @@ async function findOneUserUseCase(id: number) {
 async function updateUserUseCase(id: number, updateUserDto: UpdateUserDto) {
     const user = await findUserByIdOrThrow(id);
 
+    const emailIsUsed = await findUserByEmail(updateUserDto.email);
+
+    if (emailIsUsed) {
+        throw new Error(EXCEPTION.IN_USE);
+    }
+
     return await updateUser(user.id, updateUserDto);
 }
 
