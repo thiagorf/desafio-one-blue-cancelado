@@ -1,17 +1,22 @@
+import "express-async-errors";
 import dotenv from "dotenv";
 dotenv.config();
-import "express-async-errors";
-import express, { json, Request, Response } from "express";
+import express, { json, NextFunction, Request, Response } from "express";
+import swaggerUi from "swagger-ui-express";
 import { v1 } from "./routes";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import { redis } from "./redis";
+import options from "../swagger.json";
+import { MSG } from "./user/use-cases/user.constraints";
 
 const app = express();
 
 const RedisStore = connectRedis(session);
 
 app.use(json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(options));
+
 app.use(
     session({
         store: new RedisStore({
@@ -31,9 +36,6 @@ app.use(
 );
 
 app.use(v1);
-app.get("/", (req: Request, res: Response) => {
-    return res.json("adasd");
-});
 
 app.listen(8000, () => {
     console.log("Server is running");

@@ -13,7 +13,7 @@ const resources = [userResource, authResource, thoughtResource];
 
 userResource.use("/users", userEndpoint);
 authResource.use("/auth", authEndpoint);
-thoughtResource.use("/thought", checkAuthMiddleware, thoughtEndpoint);
+thoughtResource.use("/thoughts", thoughtEndpoint);
 
 resources.forEach((resource) => v1.use("/v1", resource));
 

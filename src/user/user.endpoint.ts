@@ -22,7 +22,7 @@ userEndpoint.delete("/:id", checkAuthMiddleware, deleteUserController);
 
 const authEndpoint = Router();
 
-authEndpoint.post("/", loginController);
-authEndpoint.post("/", logoutController);
+authEndpoint.post("/login", loginController);
+authEndpoint.post("/logout", logoutController);
 
 export { userEndpoint, authEndpoint };
