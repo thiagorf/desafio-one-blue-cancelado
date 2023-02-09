@@ -14,7 +14,7 @@ Apos os testes serem concluídos, você pode parar todos os containers com o com
 
 > É necessário a versão do node 16, postgres e redis
 
-Altere o arquivo .env para refletir as configurações de seu ambiente de desenvolvimento, garanta a criação das migrations com o comando `yarn dev:migration`, execute `yarn dev`
+Altere o arquivo .env para refletir as configurações de seu ambiente de desenvolvimento, garanta a criação das migrations com o comando `yarn dev:migration`, instale todas as dependências com `yarn` ou `npm install`,execute `yarn dev`
 
 Entre em http://localhost:8000
 
