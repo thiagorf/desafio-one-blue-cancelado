@@ -6,7 +6,6 @@ import {
     findOneUserUseCase,
     updateUserUseCase,
     deleteUserUseCase,
-    returnAllUsersThoughtsUseCase,
 } from "./user-domain";
 
 const createUserDto = {
