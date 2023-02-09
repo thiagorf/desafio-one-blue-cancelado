@@ -1,8 +1,8 @@
 {
 	"openapi": "3.0.0",
 	"info": {
-		"title": "Recriação da api \"O pensador\"",
-		"description": "desafio proposto pela one blue com o objetivo de recriar uma api similar com a do site \"O Pensador\"",
+		"title": "Revamp \"Pensador\" Api",
+		"description": "Challenge proposed by One Blue to recreate an API similar to the one on the \"Pensador\" website",
 		"version": "1.0.0"
 	},
 	"paths": {
