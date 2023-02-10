@@ -1,0 +1,13 @@
+
+
+services:
+  testDB:
+    image: postgres:13-alpine
+    container_name: testDB
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=testDb
+    ports:
+      - 5435:5432
+   

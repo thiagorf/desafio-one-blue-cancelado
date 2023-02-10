@@ -31,3 +31,5 @@ Com o projeto em execução entre em http://localhost:8000/api-docs para observa
 ## Testes
 
 unitários: `yarn test`
+
+integração: `yarn test:int`

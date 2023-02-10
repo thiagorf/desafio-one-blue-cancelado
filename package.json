@@ -7,7 +7,7 @@
   "author": "thiagorf <trfarciroli@gmail.com>",
   "license": "MIT",
   "scripts": {
-	"start:dev": "npx nodemon",
+    "start:dev": "npx nodemon",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child src/server.ts",
     "dev:migration": "prisma migrate dev",
     "lint": "eslint --ext .tsx --ext .ts src/",
@@ -15,10 +15,14 @@
     "container:stop": "docker container stop $(docker ps -q)",
     "compose:dev": "docker compose up -d",
     "create:migration": "docker compose up -d && yarn prisma migrate dev --create-only",
-	"postcreate:migration": "yarn container:stop",
+    "postcreate:migration": "yarn container:stop",
     "docker:dev": "yarn compose:dev && yarn prisma migrate deploy && yarn nodemon",
-	"postdocker:dev": "yarn container:stop",
-    "test": "jest -i"
+    "postdocker:dev": "yarn container:stop",
+    "db:restart": "docker compose -f docker-compose.yml -f docker-compose.test.yml rm testDB -fsv && docker compose -f docker-compose.yml -f docker-compose.test.yml up -d && sleep 1",
+    "test": "jest -i",
+    "pretest:int": "yarn db:restart && dotenv -e .env.test -- prisma migrate reset --force",
+    "test:int": "dotenv -e .env.test -- jest -i --no-cache --watch  --config jest-int.config.json",
+    "posttest:int": "yarn container:stop"
   },
   "dependencies": {
     "@prisma/client": "4.9.0",
@@ -32,9 +36,12 @@
     "express-async-errors": "^3.1.1",
     "express-session": "^1.17.3",
     "ioredis": "^5.3.0",
+    "jest": "^29.4.2",
+    "jest-mock-extended": "^3.0.1",
     "prisma": "^4.9.0",
     "swagger-autogen": "^2.23.0",
     "swagger-ui-express": "^4.6.0",
+    "ts-jest": "^29.0.5",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
@@ -47,13 +54,8 @@
     "@typescript-eslint/parser": "^5.51.0",
     "eslint": "^8.33.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "jest": "^29.4.1",
-    "jest-mock-extended": "2.0.4",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
-    "supertest": "^6.3.3",
-    "ts-jest": "^29.0.5",
-    "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0"
+    "supertest": "^6.3.3"
   }
 }

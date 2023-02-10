@@ -1,0 +1,6 @@
+{
+	"clearMocks": false,
+    "preset": "ts-jest",
+	"testEnvironment": "node",
+    "testRegex": ".int-spec.ts$"
+}
