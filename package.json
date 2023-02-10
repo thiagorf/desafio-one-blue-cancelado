@@ -7,6 +7,7 @@
   "author": "thiagorf <trfarciroli@gmail.com>",
   "license": "MIT",
   "scripts": {
+	"start:dev": "npx nodemon",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child src/server.ts",
     "dev:migration": "prisma migrate dev",
     "lint": "eslint --ext .tsx --ext .ts src/",
@@ -14,7 +15,9 @@
     "container:stop": "docker container stop $(docker ps -q)",
     "compose:dev": "docker compose up -d",
     "create:migration": "docker compose up -d && yarn prisma migrate dev --create-only",
-    "docker:dev": "yarn compose:dev && yarn prisma migrate deploy && yarn ts-node-dev --respawn --transpile-only --exit-child src/server.ts",
+	"postcreate:migration": "yarn container:stop",
+    "docker:dev": "yarn compose:dev && yarn prisma migrate deploy && yarn nodemon",
+	"postdocker:dev": "yarn container:stop",
     "test": "jest -i"
   },
   "dependencies": {
@@ -46,9 +49,11 @@
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^29.4.1",
     "jest-mock-extended": "2.0.4",
+    "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "supertest": "^6.3.3",
     "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0"
   }
 }
