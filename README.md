@@ -27,3 +27,7 @@ Com o projeto em execução entre em http://localhost:8000/api-docs para observa
 -   tirando a rota do swagger, todos os endpoinst tem o versionamento especificado (/v1)
 -   o cookie de sessão está definido para durar 2 (dois) minutos
 -   tentei usar uma maneira mais funcional do que orientado a objetos (que eu normalmente utilizo)
+
+## Testes
+
+unitários: `yarn test`
