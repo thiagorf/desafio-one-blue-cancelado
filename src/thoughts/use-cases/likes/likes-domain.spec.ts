@@ -1,8 +1,6 @@
 import { prismaMock } from "../../../../singleton";
 import { EXCEPTION } from "../thought.constraints";
 import { likeThoughtUseCase, removeLikeThoughtUseCase } from "./likes-domain";
-import * as r from "../repositories/thought.repository";
-import { MSG } from "../../../user/use-cases/user.constraints";
 
 const thought = {
     id: 1,
