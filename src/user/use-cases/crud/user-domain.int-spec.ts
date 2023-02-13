@@ -89,7 +89,7 @@ describe("User module integration test", () => {
         });
         it("Should not be able to update an invalid user", () => {
             expect(async () => {
-                await updateUserUseCase(1, updateUserDto);
+                await updateUserUseCase(0, updateUserDto);
             }).rejects.toThrow(EXCEPTION.INVALID);
         });
         it("Should not update the email if is already been used", async () => {
