@@ -18,11 +18,13 @@
     "postcreate:migration": "yarn container:stop",
     "docker:dev": "yarn compose:dev && yarn prisma migrate deploy && yarn nodemon",
     "postdocker:dev": "yarn container:stop",
-    "db:restart": "docker compose -f docker-compose.yml -f docker-compose.test.yml rm testDB -fsv && docker compose -f docker-compose.yml -f docker-compose.test.yml up -d && sleep 1",
+    "db:restart": "docker compose -f docker-compose.yml -f docker-compose.test.yml rm testDB -fsv && docker compose -f docker-compose.yml -f docker-compose.test.yml up -d && sleep 4",
+	"testing:database": "yarn db:restart && dotenv -e .env.test -- prisma migrate reset --force",
     "test": "jest -i",
     "pretest:int": "yarn db:restart && dotenv -e .env.test -- prisma migrate reset --force",
-    "test:int": "dotenv -e .env.test -- jest -i --no-cache --watch  --config jest-int.config.json",
-    "posttest:int": "yarn container:stop"
+    "test:int": "dotenv -e .env.test -- jest -i --no-cache --watch --config jest-int.json",
+    "posttest:int": "yarn container:stop",
+	"test:cov": "yarn testing:database && dotenv -e .test.env -- jest -i --no-cache --coverage --config jest-cov.config.json"
   },
   "dependencies": {
     "@prisma/client": "4.9.0",

@@ -1,0 +1,6 @@
+{
+	"clearMocks": false,
+    "preset": "ts-jest",
+	"testEnvironment": "node",
+    "testRegex": [".*\\.spec\\.ts$", ".int-spec.ts$", ".e2e-spec.ts$"]
+}

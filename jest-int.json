@@ -1,6 +1,9 @@
 {
+	"moduleFileExtensions": ["js", "json", "ts"],
 	"clearMocks": false,
+	"rootDir": ".",
     "preset": "ts-jest",
 	"testEnvironment": "node",
     "testRegex": ".int-spec.ts$"
 }
+
