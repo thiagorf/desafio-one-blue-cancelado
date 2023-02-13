@@ -8,10 +8,16 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     
   api:
     depends_on:
-      - testDB
+      testDB:
+        condition: service_healthy
     env_file:
       - .env.test
     environment:
