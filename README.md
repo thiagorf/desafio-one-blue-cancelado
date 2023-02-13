@@ -30,6 +30,8 @@ Com o projeto em execução entre em http://localhost:8000/api-docs para observa
 
 ## Testes
 
+> It needs to run twice to work(I don't know why)
+
 unitários: `yarn test`
 
 integração: `yarn test:int`
