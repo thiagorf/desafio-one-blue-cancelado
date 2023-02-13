@@ -64,4 +64,5 @@ export {
     updateUserController,
     deleteUserController,
     returnAllUsersThoughtsController,
+    checkUserIsTheRightOne,
 };
